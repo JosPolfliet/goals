@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+#plotModal .modal-dialog {
+  width: 98%;
+  height: 92%;
+  padding: 0;
+}
+
+#plotModal .modal-content {
+  height: 99%;
+}
+#plotModal    .modal-body{
+  min-height: 99%;
+}
+#plotModal iframe {
+    width: 100%;
+    height: 85vh;
+}
+.container {
+
+    padding: 1em
+}
+
+</style>
+
+<div class="row">
+    {% for goal in goals %}
+        <div class="col-md-4 center container">
+            <div class="row">
+                 <div class="col-sm-12">
+                     <iframe width="100%" height="350" frameborder="0" scrolling="no" src="{{ goal.plot_link }}.embed?link=false"></iframe>
+                 </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-8 col-md-offset-2">
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#descModal{{ goal.id }}"> <i class="fa fa-question" aria-hidden="true"></i> More info </button>
+
+                    <button type="button" class="btn btn-primary modalButton" data-toggle="modal" data-src="{{ goal.plot_link }}.embed?link=false" data-target="#plotModal"><i class="fa fa-search" aria-hidden="true"></i> Zoom</button>
+                </div>
+
+
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<footer>
+	<div class="modal fade" id="plotModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-body">
+
+          <div class="close-button">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+
+					            <iframe class="" frameborder="0"></iframe>
+
+				</div>
+
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+    {% for goal in goals %}
+        <div class="modal fade" id="descModal{{ goal.id }}" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{{ goal.name }}</h4>
+              </div>
+              <div class="modal-body">
+                {{ goal.description }}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+  </footer>
+{% endblock content %}
+
+
+{% block scripts %}
+<script>
+      ( function($) {
+
+    function iframeModalOpen(){
+
+            $('.modalButton').on('click', function(e) {
+                var src = $(this).attr('data-src');
+
+                $("#plotModal iframe").attr({
+                    'src': src,
+
+
+			});
+		});
+
+			$('#plotModal').on('hidden.bs.modal', function(){
+			$(this).find('iframe').html("");
+			$(this).find('iframe').attr("src", "");
+		});
+	}
+
+  $(document).ready(function(){
+		iframeModalOpen();
+  });
+
+  } ) ( jQuery );
+</script>
+{% endblock scripts %}
