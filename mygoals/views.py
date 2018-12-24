@@ -8,7 +8,6 @@ from mygoals.models import Goal, Event
 
 import plotly
 from plotly.graph_objs import Scatter, Layout
-import BeautifulSoup
 from datetime import date
 
 START_DT, STOP_DT = date(2017, 1, 1), date(2017, 12, 31)

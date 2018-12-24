@@ -11,7 +11,6 @@ from django.utils.safestring import mark_safe
 from plotly.graph_objs import Scatter, Layout
 from django.utils.timezone import localtime, make_aware
 
-import BeautifulSoup
 from datetime import date
 
 START_DT, STOP_DT =  make_aware(datetime.datetime(2017, 1, 1, 0, 0, 0)), make_aware(datetime.datetime(2017, 12, 31, 23, 59, 59))
@@ -31,7 +30,7 @@ class Goal(models.Model):
 
     def _refresh_plot(self):
         events=Event.objects.filter(goal=self).order_by('event_dt')
-        print self
+        # print self
 
         if len(events) == 0:
             return
@@ -99,7 +98,7 @@ class Goal(models.Model):
         return self.plotly_url
 
 class Event(models.Model):
-    goal = models.ForeignKey(Goal)
+    goal = models.ForeignKey(Goal, on_delete=models.CASCADE)
     event_dt = models.DateTimeField(default=django.utils.timezone.now)
     value = models.DecimalField(default=1, decimal_places=2, max_digits=20)
     notes = models.TextField(blank=True)

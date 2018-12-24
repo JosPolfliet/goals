@@ -20,10 +20,10 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = 'secret'
 
 
-ALLOWED_HOSTS = [u'glacial-escarpment-32962.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = [u'glacial-escarpment-32962.herokuapp.com','84.196.176.172', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -41,16 +41,15 @@ INSTALLED_APPS = (
 
 )
 
-MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-)
+MIDDLEWARE = [
+            'django.middleware.security.SecurityMiddleware',
+                'django.contrib.sessions.middleware.SessionMiddleware',
+                    'django.middleware.common.CommonMiddleware',
+                        'django.middleware.csrf.CsrfViewMiddleware',
+                            'django.contrib.auth.middleware.AuthenticationMiddleware',
+                                'django.contrib.messages.middleware.MessageMiddleware',
+                                    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+                                    ]
 
 ROOT_URLCONF = 'mygoals.urls'
 
