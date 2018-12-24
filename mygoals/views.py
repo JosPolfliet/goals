@@ -23,7 +23,6 @@ class ContextMixin(object):
         return context
 
 
-
 class HomeView(ContextMixin, TemplateView):
     template_name = 'mygoals/home.html'
 
@@ -31,8 +30,7 @@ class HomeView(ContextMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(HomeView, self).get_context_data(*args, **kwargs)
            
-        # CHANGE THIS WITH YOUR OWN KEY
-        plotly.tools.set_credentials_file(username='nousername123', api_key='lPOTxgmmGo4CGywT2y1K')
+
         goals = Goal.objects.all()
 
         context.update(
